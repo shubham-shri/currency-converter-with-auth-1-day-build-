@@ -24,7 +24,7 @@ const SignIn = () => {
     if (status) setToken(true)
   }
   const responseGoogle = (response) => {
-    if (response.error) alert('Something went wrong')
+    if (response.error) console.log(response.error)
     else {
       setUserToken(true)
       setToken(true)
@@ -36,7 +36,7 @@ const SignIn = () => {
       <div className="sign-in__box">
         <h2 className="title">I have an account</h2>
         <span>Sign In with your email and password</span>
-        <form className="sign-up-form" onSubmit={handleSubmit}>
+        <form className="sign-in-form" onSubmit={handleSubmit}>
           <CustomFormInput
             type="text"
             name="email"

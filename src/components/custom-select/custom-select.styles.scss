@@ -1,0 +1,29 @@
+.select {
+  padding: 8px 12px;
+  color: #333333;
+  background-color: #eeeeee;
+  border: 1px solid #dddddd;
+  cursor: pointer;
+  border-radius: 5px;
+  padding-right: 50px;
+  box-sizing: border-box;
+
+  &:focus,
+  &:hover {
+    outline: none;
+    border: 1 px solid #bbbbbb;
+  }
+}
+.select-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.select-label {
+  font-size: 18px;
+}
+.option {
+  background: #ffffff;
+}

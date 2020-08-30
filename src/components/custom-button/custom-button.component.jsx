@@ -2,8 +2,13 @@ import React from 'react'
 
 import './custom-button.styles.scss'
 
-const CustomButton = ({ children, ...otherProps }) => (
-  <button className="custom-button" {...otherProps}>
+const CustomButton = ({ children, isRemoveItem, isLogout, ...otherProps }) => (
+  <button
+    className={`custom-button ${isRemoveItem ? `remove-item` : ``} ${
+      isLogout ? `logout` : ``
+    }`}
+    {...otherProps}
+  >
     {children}
   </button>
 )

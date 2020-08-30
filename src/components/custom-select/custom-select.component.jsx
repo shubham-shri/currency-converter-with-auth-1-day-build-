@@ -1,12 +1,13 @@
 import React from 'react'
+import './custom-select.styles.scss'
 
-const CustomSelect = ({ className, optionsArray, label, onChange }) => {
+const CustomSelect = ({ optionsArray, label, onChange }) => {
   return (
-    <div>
-      <label>{label}</label>
-      <select className={className} id="custom-select" onChange={onChange}>
+    <div className="select-container">
+      <label className="select-label">{label}</label>
+      <select className="select" id="custom-select" onChange={onChange}>
         {optionsArray.map((option, index) => (
-          <option key={index} value={option}>
+          <option className="option" key={index} value={option}>
             {option}
           </option>
         ))}

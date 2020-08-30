@@ -30,13 +30,13 @@ const Home = () => {
   }, [targetCurrency])
 
   useEffect(() => {
+    const addToSourceCurrencyArray = (currencyCode) => {
+      if (sourceCurrencyArray.includes(currencyCode)) return
+      setSourceCurrencyArray([...sourceCurrencyArray, currencyCode])
+    }
     addToSourceCurrencyArray(sourceCurrency)
-  }, [sourceCurrency])
+  }, [sourceCurrency, setSourceCurrencyArray, sourceCurrencyArray])
 
-  const addToSourceCurrencyArray = (currencyCode) => {
-    if (sourceCurrencyArray.includes(currencyCode)) return
-    setSourceCurrencyArray([...sourceCurrencyArray, currencyCode])
-  }
   const removeFromSourceCurrencyArray = (e) => {
     if (!sourceCurrencyArray.includes(e.target.id)) return
     setSourceCurrencyArray(
@@ -49,11 +49,14 @@ const Home = () => {
       <Header />
       <div className="home-container">
         <h1>Currency Converter</h1>
-        <CustomFormInput
-          value={targetCurrencyAmount}
-          handleChange={(e) => setTargetCurrencyAmount(e.target.value)}
-          type="number"
-        />
+        <div>
+          <h2>Enter Amount</h2>
+          <CustomFormInput
+            value={targetCurrencyAmount}
+            handleChange={(e) => setTargetCurrencyAmount(e.target.value)}
+            type="number"
+          />
+        </div>
         <CustomSelect
           optionsArray={CURRENCY_OPTIONS}
           label="Choose Target Currency"
@@ -64,6 +67,10 @@ const Home = () => {
           label="Choose Source Currency"
           onChange={(e) => setSourceCurrency(e.target.value)}
         />
+        <span className="hint-text">
+          *You can choose multiple source currency by choosing them one after
+          the other
+        </span>
         <div>
           {sourceCurrencyArray.map((item) => (
             <CurrencySourceItem

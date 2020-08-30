@@ -9,7 +9,11 @@ const Logout = () => {
     logout()
     history.push('./signin')
   }
-  return <CustomButton onClick={() => logoutUser()}>Logout</CustomButton>
+  return (
+    <CustomButton isLogout onClick={() => logoutUser()}>
+      Log out
+    </CustomButton>
+  )
 }
 
 export default Logout
