@@ -5,6 +5,8 @@ import Home from '../../pages/home/home.component'
 import ForgotPassword from '../../pages/forgot-password/forgot-password.component'
 import { Switch, Route } from 'react-router-dom'
 
+const PageNotFound = () => <div>404 Page not found</div>
+
 const Routes = () => {
   return (
     <Switch>
@@ -12,6 +14,7 @@ const Routes = () => {
       <Route path="/signup" component={SignUp} />
       <Route path="/signin" component={SignIn} />
       <Route path="/forgotpassword" component={ForgotPassword} />
+      <Route component={PageNotFound} />
     </Switch>
   )
 }

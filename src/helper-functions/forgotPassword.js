@@ -1,5 +1,8 @@
+import MESSAGES from '../MESSAGES'
+import ENVIRONMENT_VARS from '../ENVIRONMENT_VARS'
+
 function sendEmail(email, newPassword) {
-  const templateId = 'template_U0GXhW7Z'
+  const templateId = ENVIRONMENT_VARS.EMAIL_JS_TEMPLATE_ID
   console.log(email)
   sendFeedback(templateId, {
     message_html: `Your password has been changed as per your request. Your new password is ${newPassword}. Please use this password to login to the application`,
@@ -13,13 +16,9 @@ const sendFeedback = (templateId, variables) => {
   window.emailjs
     .send('gmail', templateId, variables)
     .then((res) => {
-      alert(
-        'New Password has been sent successfully to your email, Sign in with the new password',
-      )
+      alert(MESSAGES.EMAIL_SENT_SUCCESSFULLY)
     })
-    .catch((err) =>
-      alert('Error occurred while sending new password, Please try again'),
-    )
+    .catch((err) => alert(MESSAGES.EMAIL_SENT_FAILED))
 }
 
 function generateRandomPassword() {
@@ -29,7 +28,7 @@ function forgotPassword(email) {
   let userDb = JSON.parse(localStorage.getItem('userDb'))
   let newPassword = generateRandomPassword()
   if (!userDb || !userDb[email]) {
-    alert('Email not found, sign up instead')
+    alert(MESSAGES.FORGOT_PASSWORD_EMAIL_NOT_FOUND)
     return
   }
 

@@ -6,6 +6,8 @@ import getUserToken from '../../helper-functions/getToken'
 import loginWithEmailAndPassword from '../../helper-functions/loginWithEmailAndPassword.js'
 import setUserToken from '../../helper-functions/setUserToken'
 import { useHistory, Link } from 'react-router-dom'
+import SIGN_IN_STATIC_DATA from './SIGN_STATIC_DATA'
+import ENVIRONMENT_VARS from '../../ENVIRONMENT_VARS.js'
 import './sign-in.styles.scss'
 
 const SignIn = () => {
@@ -34,8 +36,8 @@ const SignIn = () => {
   return (
     <div className="sign-in">
       <div className="sign-in__box">
-        <h2 className="title">I have an account</h2>
-        <span>Sign In with your email and password</span>
+        <h2 className="title">{SIGN_IN_STATIC_DATA.TITLE_TEXT}</h2>
+        <span>{SIGN_IN_STATIC_DATA.SUBTITLE_TEXT}</span>
         <form className="sign-in-form" onSubmit={handleSubmit}>
           <CustomFormInput
             type="text"
@@ -54,22 +56,28 @@ const SignIn = () => {
             required
           ></CustomFormInput>
           <div className="sign-up-option">
-            Forgot password<Link to={`/forgotpassword`}> Click Here</Link>
+            {SIGN_IN_STATIC_DATA.FORGOT_PASSWORD_TEXT}
+            <Link to={`/forgotpassword`}>
+              {SIGN_IN_STATIC_DATA.CLICK_HERE_TEXT}
+            </Link>
           </div>
 
-          <CustomButton type="submit">Sign In</CustomButton>
+          <CustomButton type="submit">
+            {SIGN_IN_STATIC_DATA.SIGN_IN_TEXT}
+          </CustomButton>
         </form>
         <div className="line-partition">OR</div>
         <GoogleLogin
           className="google-login"
-          clientId="872440420080-qsamraa801jjsiitrvnj9ihssmj3brbg.apps.googleusercontent.com"
+          clientId={ENVIRONMENT_VARS.GOOGLE_CLIENT_ID}
           buttonText="Login"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
           cookiePolicy={'single_host_origin'}
         />
         <div className="sign-up-option">
-          Don't have an account? <Link to={`/signup`}>Sign Up</Link>
+          {SIGN_IN_STATIC_DATA.SIGN_UP_OPTION_TEXT}{' '}
+          <Link to={`/signup`}>{SIGN_IN_STATIC_DATA.SIGN_UP_TEXT}</Link>
         </div>
       </div>
     </div>

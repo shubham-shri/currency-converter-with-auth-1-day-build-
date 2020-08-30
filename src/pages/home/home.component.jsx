@@ -5,15 +5,16 @@ import CustomSelect from '../../components/custom-select/custom-select.component
 import CURRENCY_OPTIONS from './currencyOptions'
 import { useHistory } from 'react-router-dom'
 import CustomFormInput from '../../components/custom-form-input/custom-form-input.component'
-import CurrencySourceItem from '../../components/currency-source-item/currency-source-item.component'
+import CurrencyTargetItem from '../../components/currency-target-item/currency-target-item.component'
 import axios from 'axios'
+import HOME_STATIC_DATA from './HOME_STATIC_DATA'
 import './home.styles.scss'
 
 const Home = () => {
   const [targetCurrency, setTargetCurrency] = useState(CURRENCY_OPTIONS[0])
   const [sourceCurrency, setSourceCurrency] = useState(CURRENCY_OPTIONS[0])
-  const [sourceCurrencyArray, setSourceCurrencyArray] = useState([])
-  const [targetCurrencyAmount, setTargetCurrencyAmount] = useState(1)
+  const [targetCurrencyArray, setTargetCurrencyArray] = useState([])
+  const [sourceCurrencyAmount, setSourceCurrencyAmount] = useState(1)
   const [currencyData, setCurrencyData] = useState({})
   const history = useHistory()
   useEffect(() => {
@@ -22,25 +23,25 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`https://api.exchangeratesapi.io/latest?base=${targetCurrency}`)
+      .get(`https://api.exchangeratesapi.io/latest?base=${sourceCurrency}`)
       .then((response) => {
         setCurrencyData(response.data.rates)
       })
       .catch((error) => console.log(error))
-  }, [targetCurrency])
+  }, [sourceCurrency])
 
   useEffect(() => {
-    const addToSourceCurrencyArray = (currencyCode) => {
-      if (sourceCurrencyArray.includes(currencyCode)) return
-      setSourceCurrencyArray([...sourceCurrencyArray, currencyCode])
+    const addToTargetCurrencyArray = (currencyCode) => {
+      if (targetCurrencyArray.includes(currencyCode)) return
+      setTargetCurrencyArray([...targetCurrencyArray, currencyCode])
     }
-    addToSourceCurrencyArray(sourceCurrency)
-  }, [sourceCurrency, setSourceCurrencyArray, sourceCurrencyArray])
+    addToTargetCurrencyArray(targetCurrency)
+  }, [targetCurrency, setTargetCurrencyArray, targetCurrencyArray])
 
-  const removeFromSourceCurrencyArray = (e) => {
-    if (!sourceCurrencyArray.includes(e.target.id)) return
-    setSourceCurrencyArray(
-      sourceCurrencyArray.filter((itemCode) => itemCode !== e.target.id),
+  const removeFromTargetCurrencyArray = (e) => {
+    if (!targetCurrencyArray.includes(e.target.id)) return
+    setTargetCurrencyArray(
+      targetCurrencyArray.filter((itemCode) => itemCode !== e.target.id),
     )
   }
 
@@ -48,37 +49,36 @@ const Home = () => {
     <>
       <Header />
       <div className="home-container">
-        <h1>Currency Converter</h1>
+        <h1>{HOME_STATIC_DATA.APP_HEADING}</h1>
         <div>
-          <h2>Enter Amount</h2>
+          <h2>{HOME_STATIC_DATA.AMOUNT_INPUT_LABEL}</h2>
           <CustomFormInput
-            value={targetCurrencyAmount}
-            handleChange={(e) => setTargetCurrencyAmount(e.target.value)}
+            value={sourceCurrencyAmount}
+            handleChange={(e) => setSourceCurrencyAmount(e.target.value)}
             type="number"
           />
         </div>
         <CustomSelect
           optionsArray={CURRENCY_OPTIONS}
-          label="Choose Target Currency"
-          onChange={(e) => setTargetCurrency(e.target.value)}
+          label={HOME_STATIC_DATA.SOURCE_CURRENCY_INPUT_LABEL}
+          onChange={(e) => setSourceCurrency(e.target.value)}
         />
         <CustomSelect
           optionsArray={CURRENCY_OPTIONS}
-          label="Choose Source Currency"
-          onChange={(e) => setSourceCurrency(e.target.value)}
+          label={HOME_STATIC_DATA.TARGET_CURRENCY_INPUT_LABEL}
+          onChange={(e) => setTargetCurrency(e.target.value)}
         />
         <span className="hint-text">
-          *You can choose multiple source currency by choosing them one after
-          the other
+          {HOME_STATIC_DATA.TARGET_CURRENCY_HINT}
         </span>
         <div>
-          {sourceCurrencyArray.map((item) => (
-            <CurrencySourceItem
+          {targetCurrencyArray.map((item) => (
+            <CurrencyTargetItem
               key={item}
               currencyCode={item}
               rateRatio={currencyData[item]}
-              targetAmount={targetCurrencyAmount}
-              removeFromSourceCurrencyArray={removeFromSourceCurrencyArray}
+              sourceAmount={sourceCurrencyAmount}
+              removeFromTargetCurrencyArray={removeFromTargetCurrencyArray}
             />
           ))}
         </div>

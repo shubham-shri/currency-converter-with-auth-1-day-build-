@@ -4,6 +4,7 @@ import CustomButton from '../../components/custom-button/custom-button.component
 import CustomFormInput from '../../components/custom-form-input/custom-form-input.component'
 import getUserToken from '../../helper-functions/getToken.js'
 import forgotPassword from '../../helper-functions/forgotPassword'
+import FORGOT_PASSWORD_STATIC_DATA from './FORGOT_PASSWORD_STATIC_DATA'
 import './forgot-password.styles.scss'
 
 const ForgotPassword = () => {
@@ -22,8 +23,10 @@ const ForgotPassword = () => {
   return (
     <div className="forgot-password">
       <div className="forgot-password__box">
-        <h2 className="forgot-password__title">Forgot Password ?</h2>
-        <span>Enter your email to get new password on your email</span>
+        <h2 className="forgot-password__title">
+          {FORGOT_PASSWORD_STATIC_DATA.TITLE_TEXT}
+        </h2>
+        <span>{FORGOT_PASSWORD_STATIC_DATA.SUBTITLE_TEXT}</span>
         <form className="forgot-password-form" onSubmit={handleSubmit}>
           <CustomFormInput
             type="email"
@@ -34,9 +37,14 @@ const ForgotPassword = () => {
             required
           ></CustomFormInput>
 
-          <CustomButton type="submit">Submit</CustomButton>
+          <CustomButton type="submit">
+            {FORGOT_PASSWORD_STATIC_DATA.SUBMIT_BUTTON_TEXT}
+          </CustomButton>
           <div className="sign-up-option">
-            To go to Sign In <Link to={`/signin`}> Click Here</Link>
+            {FORGOT_PASSWORD_STATIC_DATA.GO_TO_SIGN_IN_OPTION_TEXT}{' '}
+            <Link to={`/signin`}>
+              {FORGOT_PASSWORD_STATIC_DATA.CLICK_HERE_TEXT}
+            </Link>
           </div>
         </form>
       </div>

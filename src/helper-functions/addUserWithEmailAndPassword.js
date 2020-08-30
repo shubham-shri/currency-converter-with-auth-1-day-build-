@@ -1,4 +1,5 @@
 import setUserToken from './setUserToken'
+import MESSAGES from '../MESSAGES'
 function addUserWithEmailAndPassword(email, password) {
   let userDb = JSON.parse(localStorage.getItem('userDb'))
   if (!userDb) {
@@ -6,7 +7,7 @@ function addUserWithEmailAndPassword(email, password) {
     userDb = {}
   }
   if (userDb[email]) {
-    alert('email already registered')
+    alert(MESSAGES.EMAIL_ALREADY_REGISTERED)
     return
   }
   userDb[email] = password
